@@ -102,3 +102,23 @@ BinaryMessage *repeating_string_key(BinaryMessage *a, char *key) {
 
   return encrypted;
 }
+
+
+// Implement's Kernighan's algorithm for population count
+int hamming_weight(unsigned int n) {
+  int c;
+  // Repeatedly shift off the least significant '1' bit.
+  for (c = 0; n; n = n & (n-1))
+    c++;
+  
+  return c;
+}
+
+int hamming_distance(char *a, char *b, int count) {
+  int total_distance = 0;
+
+  // the number of differing bits = hamming weight of a XOR b
+  for (int i = 0; i < count; i++)
+    total_distance += hamming_weight((unsigned int)a[i] ^ (unsigned int)b[i]);
+  return total_distance;
+}
