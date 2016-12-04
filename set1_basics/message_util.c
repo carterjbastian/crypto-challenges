@@ -63,9 +63,9 @@ char *message_to_hex(BinaryMessage *m) {
 
   // Hex representation will have twice as many digits as there are characters
   int hex_len = m->length* 2;
-  char *hexstring = malloc(hex_len + 1);
+  char *hexstring = calloc(hex_len + 1, 1);
   
-  char hex_count = 0;
+  int hex_count = 0;
   for (int i = 0; i < m->length; i++) {
     sprintf((char *)(&buffer), "%02x", m->data[i]);
     // Copy over the hex characters
