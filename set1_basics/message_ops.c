@@ -34,7 +34,7 @@ BinaryMessage *XOR(BinaryMessage *a, BinaryMessage *b) {
   BinaryMessage *c = plaintext_to_message(c_data); 
 
   if (c->length < a->length) {
-    fprintf(stderr, "Encountered a null byte error\n");
+    //fprintf(stderr, "Encountered a null byte error\n");
     free_message(c);
     return NULL;
   }
@@ -42,17 +42,17 @@ BinaryMessage *XOR(BinaryMessage *a, BinaryMessage *b) {
   return c;
 }
 
-// TODO (carter): Add frequency analysis
 int score(BinaryMessage *a) {
   if (!a)
     return 0;
 
   double score = 1000;
-  
+
+  // Penalize non-printable characters  
   for (int i = 0; i < a->length; i++) {
     int byteval = (int) a->data[i];
     if ((byteval < ASCII_LOW_VAL) || (byteval > ASCII_HIGH_VAL))
-      score = 0;
+      score -= 150;
   }
 
   int *letter_count = calloc(26, sizeof(int));
@@ -71,13 +71,13 @@ int score(BinaryMessage *a) {
     }
   }
 
-  // Peanalize poor frequency distribution
+  // Penalize poor frequency distribution
   for (int i = 0; i < 26; i++) {
     score -= fabs(LETTER_FREQ[i] - ((double) letter_count[i] / (double)count));
   }
   
-  // Peanalize poor word-length (constant is arbitrary)
-  score -= 250 * abs(expected_spaces - space_count);
+  // Penalize poor word-length (constant is arbitrary)
+  score -= 350 * abs(expected_spaces - space_count);
 
   return score;
 }

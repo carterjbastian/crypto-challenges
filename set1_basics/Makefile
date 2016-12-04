@@ -13,7 +13,12 @@ c3: $(SRC) challenge3.c
 	gcc -ggdb -o c3 base64.c message_util.c message_ops.c challenge3.c \
 	  -I/usr/local/opt/openssl/include/ -lcrypto
 
+c4: $(SRC) challenge4.c
+	gcc -ggdb -o c4 base64.c message_util.c message_ops.c challenge4.c \
+	  -I/usr/local/opt/openssl/include/ -lcrypto
+
 
 # Remove files for the form cX where X is a challenge number
 clean:
 	ls | grep 'c.\{1\}$$' | xargs rm
+	rm -rf *.dSYM
