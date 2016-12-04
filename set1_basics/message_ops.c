@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
+#include <string.h>
 
 #include "message_util.h"
 #include "message_ops.h"
@@ -80,4 +81,24 @@ int score(BinaryMessage *a) {
   score -= 350 * abs(expected_spaces - space_count);
 
   return score;
+}
+
+
+BinaryMessage *repeating_string_key(BinaryMessage *a, char *key) {
+  unsigned char *new_string = calloc(a->length + 1, 1);
+  
+  int idx = 0;
+  int key_len = strlen(key);
+
+  for (int i = 0; i < a->length; i++) {
+    new_string[i] = (char) (a->data[i] ^ key[idx]);
+    idx = (idx + 1) % key_len;
+  }
+
+  BinaryMessage *encrypted = malloc(sizeof(BinaryMessage));
+
+  encrypted->data = new_string;
+  encrypted->length = a->length;
+
+  return encrypted;
 }

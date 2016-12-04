@@ -10,5 +10,6 @@ BinaryMessage *XOR(BinaryMessage *a, BinaryMessage *b);
 
 int score(BinaryMessage *a);
 
+BinaryMessage *repeating_string_key(BinaryMessage *a, char *key);
 
 #endif // MESSAGE_OPS_H_
