@@ -31,17 +31,17 @@ int main() {
       for (int j = 0; j < len; j++)
         pad[j] = pad_char;
       
-      BinaryMessage *pad_message = plaintext_to_message(pad);
+      BinaryMessage *pad_message = plaintext_to_message(pad, len);
 
       // XOR the original with the potential one-time pad
       BinaryMessage *output = XOR(m, pad_message);
 
       // Test if the result is possibly right
       double s = score(output);
-      if (s > 0) {
+//      if (s > 0) {
         printf("%s \tChar: %c [%f]\tstring: %s", output->data, pad_char, s, encoded);
         //printf("\tCharacter: %c [%f]\n\tResult: %s\n", pad_char, s, output->data);
-      }
+//      }
       // Clean up the memory
       free_message(output);
       free_message(pad_message);

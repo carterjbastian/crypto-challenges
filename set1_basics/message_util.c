@@ -36,12 +36,12 @@ BinaryMessage *base64_string_to_message(char *base64_string) {
   size_t message_length;
 
   Base64Decode(base64_string, (unsigned char **)(&decoded), &message_length);
-  return plaintext_to_message(decoded);
+  return plaintext_to_message(decoded, message_length);
 }
 
 // TODO(carter): fix this so null terminator doesn't ruin everything.
-BinaryMessage *plaintext_to_message(char *plaintext) {
-  int len = strlen(plaintext);
+BinaryMessage *plaintext_to_message(char *plaintext, int length) {
+  int len = length;
   BinaryMessage *message = malloc(sizeof(BinaryMessage));
 
   // Allocate enough space for each character + null termination (zeroed out)

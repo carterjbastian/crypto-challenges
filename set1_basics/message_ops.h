@@ -13,6 +13,6 @@ int score(BinaryMessage *a);
 BinaryMessage *repeating_string_key(BinaryMessage *a, char *key);
 
 int hamming_weight(unsigned int n);
-int hamming_distance(char *a, char *b, int count);
+int hamming_distance(unsigned char *a, unsigned char *b, int count);
 
 #endif // MESSAGE_OPS_H_

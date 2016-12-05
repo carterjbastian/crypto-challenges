@@ -7,7 +7,7 @@
 
 int main() {
   char *data = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal";
-  BinaryMessage *original = plaintext_to_message(data);
+  BinaryMessage *original = plaintext_to_message(data, strlen(data));
   BinaryMessage *encrypted = repeating_string_key(original, "ICE");
 
   printf("Output: %s\n", message_to_hex(encrypted));

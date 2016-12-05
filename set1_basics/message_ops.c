@@ -32,7 +32,7 @@ BinaryMessage *XOR(BinaryMessage *a, BinaryMessage *b) {
 
   // Make a new message to hold the data
   // TODO (carter): this can break if xoring => a null byte...
-  BinaryMessage *c = plaintext_to_message(c_data); 
+  BinaryMessage *c = plaintext_to_message(c_data, len); 
 
   if (c->length < a->length) {
     //fprintf(stderr, "Encountered a null byte error\n");
@@ -44,16 +44,22 @@ BinaryMessage *XOR(BinaryMessage *a, BinaryMessage *b) {
 }
 
 int score(BinaryMessage *a) {
+  /* 
+   * DEV NOTE: this is a very gross scoring function.
+   * To get it to work, play with the initialization of score until you see 
+   * something that makes sence. Also consider changing the word-length penalty
+   * value. Longer strings should have a higher starting score.
+   */
   if (!a)
     return 0;
 
-  double score = 1000;
+  double score = 50000;
 
   // Penalize non-printable characters  
   for (int i = 0; i < a->length; i++) {
     int byteval = (int) a->data[i];
     if ((byteval < ASCII_LOW_VAL) || (byteval > ASCII_HIGH_VAL))
-      score -= 150;
+      score -= 210;
   }
 
   int *letter_count = calloc(26, sizeof(int));
@@ -114,7 +120,7 @@ int hamming_weight(unsigned int n) {
   return c;
 }
 
-int hamming_distance(char *a, char *b, int count) {
+int hamming_distance(unsigned char *a, unsigned char *b, int count) {
   int total_distance = 0;
 
   // the number of differing bits = hamming weight of a XOR b

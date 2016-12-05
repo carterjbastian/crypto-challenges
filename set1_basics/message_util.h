@@ -10,7 +10,7 @@ BinaryMessage *hex_string_to_message(char *hex_string);
 
 BinaryMessage *base64_string_to_message(char *base64_string);
 
-BinaryMessage *plaintext_to_message(char *plaintext);
+BinaryMessage *plaintext_to_message(char *plaintext, int length);
 
 char *message_to_hex(BinaryMessage *);
 

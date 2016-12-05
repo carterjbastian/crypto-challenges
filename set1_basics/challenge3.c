@@ -21,7 +21,7 @@ int main() {
     for (int j = 0; j < len; j++)
       pad[j] = pad_char;
     
-    BinaryMessage *pad_message = plaintext_to_message(pad);
+    BinaryMessage *pad_message = plaintext_to_message(pad, len);
 
     // XOR the original with the potential one-time pad
     BinaryMessage *output = XOR(m, pad_message);
